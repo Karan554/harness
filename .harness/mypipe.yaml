@@ -35,28 +35,23 @@ pipeline:
         name: Build
         identifier: Build
         description: ""
-        type: CI
+        type: Custom
         spec:
-          cloneCodebase: true
           execution:
             steps:
               - step:
-                  type: GitClone
-                  name: Git Clone_1
-                  identifier: GitClone_1
+                  type: JenkinsBuild
+                  name: Jenkins Build_1
+                  identifier: JenkinsBuild_1
                   spec:
-                    connectorRef: mygitdelegatetoken
-                    repoName: harness
-                    build:
-                      type: branch
-                      spec:
-                        branch: main
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
+                    connectorRef: Jenkins
+                    jobName: git
+                    jobParameter: []
+                    delegateSelectors: []
+                    unstableStatusAsSuccess: false
+                    useConnectorUrlForJobExecution: false
+                  timeout: 10s
+        tags: {}
   delegateSelectors:
     - kubernetes-delegate
   notificationRules:
@@ -72,9 +67,3 @@ pipeline:
           recipients:
             - joyboy3474@gmail.com
       enabled: true
-  properties:
-    ci:
-      codebase:
-        connectorRef: mygitdelegatetoken
-        repoName: harness
-        build: <+input>
