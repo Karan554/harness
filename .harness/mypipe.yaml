@@ -31,6 +31,32 @@ pipeline:
                   timeout: 10m
                   failureStrategies: []
         tags: {}
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: GitClone
+                  name: Git Clone_1
+                  identifier: GitClone_1
+                  spec:
+                    connectorRef: mygitdelegatetoken
+                    repoName: harness
+                    build:
+                      type: branch
+                      spec:
+                        branch: main
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
   delegateSelectors:
     - kubernetes-delegate
   notificationRules:
@@ -46,3 +72,9 @@ pipeline:
           recipients:
             - joyboy3474@gmail.com
       enabled: true
+  properties:
+    ci:
+      codebase:
+        connectorRef: mygitdelegatetoken
+        repoName: harness
+        build: <+input>
