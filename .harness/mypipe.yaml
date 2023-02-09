@@ -1,0 +1,41 @@
+pipeline:
+  name: my-pipe
+  identifier: mypipe
+  projectIdentifier: kubenetes_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: mygitdelegatetoken
+        repoName: harness
+        build: <+input>
+  stages:
+    - stage:
+        name: echo
+        identifier: echo
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: ubuntu:latest
+                    shell: Sh
+                    command: |-
+                      echo "Hello World"
+                      ls -ltr
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+  delegateSelectors:
+    - kubernetes-delegate
