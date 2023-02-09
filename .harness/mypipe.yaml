@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo "The Pipeline is started'
+                        script: echo "The pipeline is started"
                     environmentVariables: []
                     outputVariables: []
                     delegateSelectors:
