@@ -6,7 +6,7 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: stage1
+        name: Email Start
         identifier: stage1
         description: ""
         type: Custom
@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo "hello"
+                        script: echo "The Pipeline is started'
                     environmentVariables: []
                     outputVariables: []
                     delegateSelectors:
