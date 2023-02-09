@@ -4,38 +4,32 @@ pipeline:
   projectIdentifier: kubenetes_project
   orgIdentifier: default
   tags: {}
-  properties:
-    ci:
-      codebase:
-        connectorRef: mygitdelegatetoken
-        repoName: harness
-        build: <+input>
   stages:
     - stage:
-        name: echo
-        identifier: echo
+        name: stage1
+        identifier: stage1
         description: ""
-        type: CI
+        type: Custom
         spec:
-          cloneCodebase: true
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
+                  type: ShellScript
+                  name: Shell Script_1
+                  identifier: ShellScript_1
                   spec:
-                    connectorRef: account.harnessImage
-                    image: ubuntu:latest
-                    shell: Sh
-                    command: |-
-                      echo "Hello World"
-                      ls -ltr
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "hello"
+                    environmentVariables: []
+                    outputVariables: []
+                    delegateSelectors:
+                      - kubernetes-delegate
+                  timeout: 10m
+                  failureStrategies: []
+        tags: {}
   delegateSelectors:
     - kubernetes-delegate
