@@ -33,3 +33,16 @@ pipeline:
         tags: {}
   delegateSelectors:
     - kubernetes-delegate
+  notificationRules:
+    - name: gen-notification
+      identifier: gennotification
+      pipelineEvents:
+        - type: PipelineStart
+        - type: PipelineEnd
+      notificationMethod:
+        type: Email
+        spec:
+          userGroups: []
+          recipients:
+            - joyboy3474@gmail.com
+      enabled: true
